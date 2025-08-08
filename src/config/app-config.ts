@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 import { registerAs } from '@nestjs/config'
 import { AppConfig } from './app-config.type'
 import validateConfig from '~/utils/validation-config'
