@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import path from 'path'
 import { Module } from '@nestjs/common'
-import { ConfigModule, ConfigService } from '@nestjs/config'
+import { ConfigModule } from '@nestjs/config'
 import databaseConfig from './database/config/database-config'
 import appConfig from './config/app-config'
-import { DatabaseConfig } from './database/config/database-config.type'
+
 import { TypeOrmConfigService } from './database/typeorm-config.services'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { DataSource, DataSourceOptions } from 'typeorm'
