@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm'
 
 import { In, Repository } from 'typeorm'
 
-import { NullableType } from '~/utils/types/nullable.type'
+import { NullableType } from '~/utils/type/nullable.type'
 import { FileRepository } from '../../file-repository'
 import { FileEntity } from '../entities/file-entity'
 import { FileType } from '~/files/domain/file'

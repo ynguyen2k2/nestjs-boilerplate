@@ -1,3 +1,13 @@
+import {
+  HttpStatus,
+  Injectable,
+  UnprocessableEntityException,
+} from '@nestjs/common'
+import { User } from '~/user/domain/user'
+import { CreateUserDto } from '~/user/dto/create-user.dto'
+import { UserRepository } from '~/user/infrastructure/persistence/user-repository'
+import bcrypt from 'bcrypt'
+import { FileType } from '~/files/domain/file'
 @Injectable()
 export class UsersService {
   constructor(
