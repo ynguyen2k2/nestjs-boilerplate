@@ -5,6 +5,7 @@ import {
 import fileConfig from '~/files/config/file-config'
 import { FilesService } from '~/files/file.service'
 import { RelationalFilePersistenceModule } from '~/files/infrastructure/persistence/relational/relational-persistence.module'
+import { FilesLocalModule } from '~/files/infrastructure/upload/local/files.module'
 
 // // <database-block>
 // const infrastructurePersistenceModule = (databaseConfig() as DatabaseConfig)
@@ -24,12 +25,14 @@ import { RelationalFilePersistenceModule } from '~/files/infrastructure/persiste
 const infrastructurePersistenceModule = RelationalFilePersistenceModule
 // </database-block>
 
-const infrastructureUploaderModule =
-  (fileConfig() as FileConfig).driver === FileDriver.LOCAL
-    ? FilesLocalModule
-    : (fileConfig() as FileConfig).driver === FileDriver.S3
-      ? FilesS3Module
-      : FilesS3PresignedModule
+// const infrastructureUploaderModule =
+//   (fileConfig() as FileConfig).driver === FileDriver.LOCAL
+//     ? FilesLocalModule
+//     : (fileConfig() as FileConfig).driver === FileDriver.S3
+//       ? FilesS3Module
+//       : FilesS3PresignedModule
+
+const infrastructureUploaderModule = FilesLocalModule
 
 @Module({
   imports: [
