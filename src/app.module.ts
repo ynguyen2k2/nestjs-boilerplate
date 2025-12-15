@@ -8,6 +8,7 @@ import appConfig from './config/app-config'
 import { TypeOrmConfigService } from './database/typeorm-config.services'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { DataSource, DataSourceOptions } from 'typeorm'
+import { UsersModule } from '~/user/users.module'
 // <database-block>
 const infrastructureDatabaseModule = TypeOrmModule.forRootAsync({
   useClass: TypeOrmConfigService,
@@ -25,7 +26,7 @@ const infrastructureDatabaseModule = TypeOrmModule.forRootAsync({
       envFilePath: ['.env'],
     }),
     infrastructureDatabaseModule,
-    // UsersModule,
+    UsersModule,
     // AuthModule,
   ],
 })
