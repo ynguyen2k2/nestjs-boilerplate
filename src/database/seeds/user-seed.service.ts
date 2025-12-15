@@ -1,0 +1,78 @@
+import { Injectable } from '@nestjs/common'
+import { InjectRepository } from '@nestjs/typeorm'
+
+import { Repository } from 'typeorm'
+import bcrypt from 'bcryptjs'
+import { UserEntity } from '~/user/infrastructure/persistence/relational/entities/user-entity'
+import { RoleEnum } from '~/roles/roles-enum'
+import { StatusEnum } from '~/statuses/status-enum'
+
+@Injectable()
+export class UserSeedService {
+  constructor(
+    @InjectRepository(UserEntity)
+    private repository: Repository<UserEntity>,
+  ) {}
+
+  async run() {
+    const countAdmin = await this.repository.count({
+      where: {
+        role: {
+          id: RoleEnum.ADMIN,
+        },
+      },
+    })
+
+    if (!countAdmin) {
+      const salt = await bcrypt.genSalt()
+      const password = await bcrypt.hash('secret', salt)
+
+      await this.repository.save(
+        this.repository.create({
+          firstName: 'Super',
+          lastName: 'Admin',
+          email: 'admin@example.com',
+          password,
+          role: {
+            id: RoleEnum.ADMIN,
+            name: 'Admin',
+          },
+          status: {
+            id: StatusEnum.ACTIVE,
+            name: 'Active',
+          },
+        }),
+      )
+    }
+
+    const countUser = await this.repository.count({
+      where: {
+        role: {
+          id: RoleEnum.user,
+        },
+      },
+    })
+
+    if (!countUser) {
+      const salt = await bcrypt.genSalt()
+      const password = await bcrypt.hash('secret', salt)
+
+      await this.repository.save(
+        this.repository.create({
+          firstName: 'John',
+          lastName: 'Doe',
+          email: 'john.doe@example.com',
+          password,
+          role: {
+            id: RoleEnum.user,
+            name: 'Admin',
+          },
+          status: {
+            id: StatusEnum.active,
+            name: 'Active',
+          },
+        }),
+      )
+    }
+  }
+}
