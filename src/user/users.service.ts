@@ -8,6 +8,16 @@ import { CreateUserDto } from '~/user/dto/create-user.dto'
 import { UserRepository } from '~/user/infrastructure/persistence/user-repository'
 import bcrypt from 'bcrypt'
 import { FileType } from '~/files/domain/file'
+import { FilesService } from '~/files/file.service'
+import { Role } from '~/roles/domain/role'
+import { RoleEnum } from '~/roles/roles-enum'
+import { Status } from '~/statuses/domain/status'
+import { StatusEnum } from '~/statuses/status-enum'
+import { FilterUserDto, SortUserDto } from '~/user/dto/query-user.dto'
+import { IPaginationOptions } from '~/utils/type/pagination-options'
+import { AuthProvidersEnum } from '~/auth/auth-providers.enum'
+import { NullableType } from '~/utils/type/nullable.type'
+import { UpdateUserDto } from '~/user/dto/update-user.dto'
 @Injectable()
 export class UsersService {
   constructor(
@@ -145,18 +155,18 @@ export class UsersService {
     return this.usersRepository.findByEmail(email)
   }
 
-  findBySocialIdAndProvider({
-    socialId,
-    provider,
-  }: {
-    socialId: User['socialId']
-    provider: User['provider']
-  }): Promise<NullableType<User>> {
-    return this.usersRepository.findBySocialIdAndProvider({
-      socialId,
-      provider,
-    })
-  }
+  // findBySocialIdAndProvider({
+  //   socialId,
+  //   provider,
+  // }: {
+  //   socialId: User['socialId']
+  //   provider: User['provider']
+  // }): Promise<NullableType<User>> {
+  //   return this.usersRepository.findBySocialIdAndProvider({
+  //     socialId,
+  //     provider,
+  //   })
+  // }
 
   async update(
     id: User['id'],
