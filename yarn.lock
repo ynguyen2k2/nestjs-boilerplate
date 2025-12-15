@@ -2104,6 +2104,11 @@ bcrypt@6.0.0:
     node-addon-api "^8.3.0"
     node-gyp-build "^4.8.4"
 
+bcryptjs@^3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/bcryptjs/-/bcryptjs-3.0.3.tgz#4b93d6a398c48bfc9f32ee65d301174a8a8ea56f"
+  integrity sha512-GlF5wPWnSa/X5LKM1o0wz0suXIINz1iHRLvTS+sLyi7XPbe5ycmYI3DlZqVGZZtDgl4DmasFg7gOB3JYbphV5g==
+
 binary-extensions@^2.0.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/binary-extensions/-/binary-extensions-2.3.0.tgz#f6e14a97858d327252200242d4ccfe522c445522"
@@ -4590,7 +4595,7 @@ passport-strategy@1.x.x:
   resolved "https://registry.yarnpkg.com/passport-strategy/-/passport-strategy-1.0.0.tgz#b5539aa8fc225a3d1ad179476ddf236b440f52e4"
   integrity sha512-CB97UUvDKJde2V0KDWWB3lyf6PC3FaZP7YxZ2G8OAtn9p4HI9j9JLP9qjOGZFvyl8uwNT8qM+hGnz/n16NI7oA==
 
-passport@^0.7.0:
+passport@0.7.0:
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/passport/-/passport-0.7.0.tgz#3688415a59a48cf8068417a8a8092d4492ca3a05"
   integrity sha512-cPLl+qZpSc+ireUvt+IzqbED1cHHkDoVYMo30jbJIdOOjQ1MQYZBPiNvmi8UM6lJuOpTPXJGZQk0DtC4y61MYQ==
