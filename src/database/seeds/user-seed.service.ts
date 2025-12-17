@@ -48,7 +48,7 @@ export class UserSeedService {
     const countUser = await this.repository.count({
       where: {
         role: {
-          id: RoleEnum.user,
+          id: RoleEnum.USER,
         },
       },
     })
@@ -64,11 +64,11 @@ export class UserSeedService {
           email: 'john.doe@example.com',
           password,
           role: {
-            id: RoleEnum.user,
+            id: RoleEnum.USER,
             name: 'Admin',
           },
           status: {
-            id: StatusEnum.active,
+            id: StatusEnum.ACTIVE,
             name: 'Active',
           },
         }),
