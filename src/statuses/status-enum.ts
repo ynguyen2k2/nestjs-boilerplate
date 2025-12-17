@@ -1,6 +1,6 @@
 export enum StatusEnum {
-  ACTIVE = 'active',
-  INACTIVE = 'inactive',
-  SUSPENDED = 'suspended',
-  DELETED = 'deleted',
+  INACTIVE = 0,
+  ACTIVE = 1,
+  SUSPENDED = 2,
+  DELETED = 3,
 }
