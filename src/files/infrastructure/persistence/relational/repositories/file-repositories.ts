@@ -5,7 +5,7 @@ import { In, Repository } from 'typeorm'
 
 import { NullableType } from '~/utils/type/nullable.type'
 import { FileRepository } from '../../file-repository'
-import { FileEntity } from '../entities/file-entity'
+import { FileEntity } from '../entities/file.entity'
 import { FileType } from '~/files/domain/file'
 import { FileMapper } from '../mappers/file-mapper'
 
