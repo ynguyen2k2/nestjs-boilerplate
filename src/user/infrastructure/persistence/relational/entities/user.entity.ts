@@ -10,9 +10,9 @@ import {
   JoinColumn,
   OneToOne,
 } from 'typeorm'
-import { FileEntity } from '~/files/infrastructure/persistence/relational/entities/file-entity'
+import { FileEntity } from '~/files/infrastructure/persistence/relational/entities/file.entity'
 import { RoleEntity } from '~/roles/infrastructure/persistence/relational/entities/role.entity'
-import { StatusEntity } from '~/statuses/infrastucture/persistence/relational/entities/status-entity'
+import { StatusEntity } from '~/statuses/infrastucture/persistence/relational/entities/status.entity'
 import { EntityRelationalHelper } from '~/utils/relational-entity-helper'
 
 @Entity({
