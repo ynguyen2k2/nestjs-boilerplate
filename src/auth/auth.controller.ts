@@ -13,17 +13,9 @@ import {
 } from '@nestjs/common'
 import { AuthService } from './auth.service'
 import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger'
-import { AuthEmailLoginDto } from './dto/auth-email-login.dto'
-import { AuthForgotPasswordDto } from './dto/auth-forgot-password.dto'
-import { AuthConfirmEmailDto } from './dto/auth-confirm-email.dto'
-import { AuthResetPasswordDto } from './dto/auth-reset-password.dto'
-import { AuthUpdateDto } from './dto/auth-update.dto'
-import { AuthGuard } from '@nestjs/passport'
-import { AuthRegisterLoginDto } from './dto/auth-register-login.dto'
-import { LoginResponseDto } from './dto/login-response.dto'
-import { NullableType } from '../utils/types/nullable.type'
-import { User } from '../users/domain/user'
-import { RefreshResponseDto } from './dto/refresh-response.dto'
+import { LoginResponseDto } from '~/auth/dto/login-response.dto'
+import { AuthEmailLoginDto } from '~/auth/dto/auth-email-login.dto'
+import { AuthRegisterLoginDto } from '~/auth/dto/auth-register-logic.dto'
 
 @ApiTags('Auth')
 @Controller({
@@ -95,7 +87,7 @@ export class AuthController {
   })
   @HttpCode(HttpStatus.OK)
   public me(@Request() request): Promise<NullableType<User>> {
-    return this.service.me(request.user)
+    return this.service.me(request.use)
   }
 
   @ApiBearerAuth()
