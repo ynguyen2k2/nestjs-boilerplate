@@ -16,6 +16,14 @@ import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger'
 import { LoginResponseDto } from '~/auth/dto/login-response.dto'
 import { AuthEmailLoginDto } from '~/auth/dto/auth-email-login.dto'
 import { AuthRegisterLoginDto } from '~/auth/dto/auth-register-logic.dto'
+import { AuthConfirmEmailDto } from '~/auth/dto/auth-confirm-email.dto'
+import { AuthForgotPasswordDto } from '~/auth/dto/email-forgot-password.dto'
+import { AuthResetPasswordDto } from '~/auth/dto/auth-reset-password.dto'
+import { AuthGuard } from '@nestjs/passport'
+import { User } from '~/user/domain/user'
+import { NullableType } from '~/utils/type/nullable.type'
+import { RefreshResponseDto } from '~/auth/dto/refresh-response.dto'
+import { AuthUpdateDto } from '~/auth/dto/auth-update.dto'
 
 @ApiTags('Auth')
 @Controller({
@@ -87,7 +95,7 @@ export class AuthController {
   })
   @HttpCode(HttpStatus.OK)
   public me(@Request() request): Promise<NullableType<User>> {
-    return this.service.me(request.use)
+    return this.service.me(request.user)
   }
 
   @ApiBearerAuth()
@@ -142,4 +150,3 @@ export class AuthController {
     return this.service.softDelete(request.user)
   }
 }
-z``
