@@ -10,6 +10,7 @@ import {
   JoinColumn,
   OneToOne,
 } from 'typeorm'
+import { AuthProvidersEnum } from '~/auth/auth-providers.enum'
 import { FileEntity } from '~/files/infrastructure/persistence/relational/entities/file.entity'
 import { RoleEntity } from '~/roles/infrastructure/persistence/relational/entities/role.entity'
 import { StatusEntity } from '~/statuses/infrastucture/persistence/relational/entities/status.entity'
@@ -30,8 +31,8 @@ export class UserEntity extends EntityRelationalHelper {
   @Column({ nullable: true })
   password?: string
 
-  // @Column({ default: AuthProvidersEnum.email })
-  // provider: string
+  @Column({ default: AuthProvidersEnum.EMAIL })
+  provider: string
 
   @Index()
   @Column({ type: String, nullable: true })
