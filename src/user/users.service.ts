@@ -122,7 +122,7 @@ export class UsersService {
       photo: photo,
       role: role,
       status: status,
-      provider: createUserDto.provider ?? AuthProvidersEnum.email,
+      provider: createUserDto.provider ?? AuthProvidersEnum.EMAIL,
       socialId: createUserDto.socialId,
     })
   }
