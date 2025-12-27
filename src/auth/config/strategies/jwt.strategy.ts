@@ -1,0 +1,30 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+import { ExtractJwt, Strategy } from 'passport-jwt'
+import { Injectable, UnauthorizedException } from '@nestjs/common'
+import { PassportStrategy } from '@nestjs/passport'
+import { ConfigService } from '@nestjs/config'
+import { JwtPayloadType } from './types/jwt-payload.type'
+import { AllConfigType } from '~/config/config.type'
+import { OrNeverType } from '~/utils/type/or-never.type'
+
+@Injectable()
+export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
+  constructor(configService: ConfigService<AllConfigType>) {
+    super({
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+      secretOrKey: configService.getOrThrow('auth.secret', { infer: true }),
+    })
+  }
+
+  // Why we don't check if the user exists in the database:
+  // https://github.com/brocoders/nestjs-boilerplate/blob/main/docs/auth.md#about-jwt-strategy
+  public validate(payload: JwtPayloadType): OrNeverType<JwtPayloadType> {
+    if (!payload.id) {
+      throw new UnauthorizedException()
+    }
+
+    return payload
+  }
+}

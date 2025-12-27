@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
-import path from 'path'
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import databaseConfig from './database/config/database-config'
@@ -9,6 +8,8 @@ import { TypeOrmConfigService } from './database/typeorm-config.services'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { DataSource, DataSourceOptions } from 'typeorm'
 import { UsersModule } from '~/user/users.module'
+import { AuthModule } from '~/auth/auth.module'
+
 // <database-block>
 const infrastructureDatabaseModule = TypeOrmModule.forRootAsync({
   useClass: TypeOrmConfigService,
@@ -27,7 +28,7 @@ const infrastructureDatabaseModule = TypeOrmModule.forRootAsync({
     }),
     infrastructureDatabaseModule,
     UsersModule,
-    // AuthModule,
+    AuthModule,
   ],
 })
 export class AppModule {}

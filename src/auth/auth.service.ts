@@ -1,6 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/restrict-plus-operands */
 import {
   HttpStatus,
   Injectable,
@@ -29,6 +27,7 @@ import { NullableType } from '~/utils/type/nullable.type'
 import { AuthRegisterLoginDto } from '~/auth/dto/auth-register-logic.dto'
 import { RoleEnum } from '~/roles/roles-enum'
 import { StatusEnum } from '~/statuses/status-enum'
+import { MailService } from '~/mail/mail.service'
 
 @Injectable()
 export class AuthService {
@@ -95,14 +94,13 @@ export class AuthService {
       hash,
     })
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const { token, refreshToken, tokenExpires } = await this.getTokensData({
       id: user.id,
       role: user.role,
       sessionId: session.id,
       hash,
     })
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+
     return {
       refreshToken,
       token,
@@ -326,9 +324,10 @@ export class AuthService {
       })
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     const tokenExpiresIn = this.configService.getOrThrow('auth.forgotExpires', {
       infer: true,
-    })
+    }) as ms.StringValue
 
     const tokenExpires = Date.now() + ms(tokenExpiresIn)
 
@@ -554,9 +553,10 @@ export class AuthService {
     sessionId: Session['id']
     hash: Session['hash']
   }) {
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     const tokenExpiresIn = this.configService.getOrThrow('auth.expires', {
       infer: true,
-    })
+    }) as ms.StringValue
 
     const tokenExpires = Date.now() + ms(tokenExpiresIn)
 
