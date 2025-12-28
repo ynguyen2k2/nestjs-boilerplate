@@ -9,6 +9,7 @@ import { TypeOrmModule } from '@nestjs/typeorm'
 import { DataSource, DataSourceOptions } from 'typeorm'
 import { UsersModule } from '~/user/users.module'
 import { AuthModule } from '~/auth/auth.module'
+import authConfig from './auth/config/auth.config'
 
 // <database-block>
 const infrastructureDatabaseModule = TypeOrmModule.forRootAsync({
@@ -23,7 +24,7 @@ const infrastructureDatabaseModule = TypeOrmModule.forRootAsync({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      load: [databaseConfig, appConfig],
+      load: [databaseConfig, appConfig, authConfig],
       envFilePath: ['.env'],
     }),
     infrastructureDatabaseModule,
