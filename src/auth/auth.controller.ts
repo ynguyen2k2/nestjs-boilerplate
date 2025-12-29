@@ -25,6 +25,7 @@ import { NullableType } from '~/utils/type/nullable.type'
 import { RefreshResponseDto } from '~/auth/dto/refresh-response.dto'
 import { AuthUpdateDto } from '~/auth/dto/auth-update.dto'
 import { JwtPayloadType } from '~/auth/config/strategies/types/jwt-payload.type'
+import { MyLogger } from '~/logger/mylogger.service'
 
 interface RefreshRequestType {
   user: JwtPayloadType & { sessionId: string; hash: string }
@@ -36,7 +37,17 @@ interface RefreshRequestType {
   version: '1',
 })
 export class AuthController {
-  constructor(private readonly service: AuthService) {}
+  constructor(
+    private readonly logger: MyLogger,
+    private readonly service: AuthService,
+  ) {}
+
+  @Get('logger')
+  public testLogger() {
+    this.logger.customLog()
+    this.logger.error('Auth Controller Logger Works!')
+    this.service.loggerAuthService()
+  }
 
   @SerializeOptions({
     groups: ['me'],

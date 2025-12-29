@@ -18,17 +18,21 @@ import { IPaginationOptions } from '~/utils/type/pagination-options'
 import { AuthProvidersEnum } from '~/auth/auth-providers.enum'
 import { NullableType } from '~/utils/type/nullable.type'
 import { UpdateUserDto } from '~/user/dto/update-user.dto'
+import { MyLogger } from '~/logger/mylogger.service'
 @Injectable()
 export class UsersService {
   constructor(
+    private readonly logger: MyLogger,
     private readonly usersRepository: UserRepository,
     private readonly filesService: FilesService,
-  ) {}
+  ) {
+    this.logger.setContext(UsersService.name)
+  }
 
   async create(createUserDto: CreateUserDto): Promise<User> {
     // Do not remove comment below.
     // <creating-property />
-
+    this.logger.debug('Creating user with email: ' + createUserDto.email)
     let password: string | undefined = undefined
 
     if (createUserDto.password) {

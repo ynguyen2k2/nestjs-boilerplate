@@ -10,12 +10,14 @@ import { JwtRefreshStrategy } from '~/auth/config/strategies/jwt-refresh.strateg
 import { AnonymousStrategy } from '~/auth/config/strategies/anonymous.strategy'
 import { JwtStrategy } from '~/auth/config/strategies/jwt.strategy'
 import { MailModule } from '~/mail/mail.module'
+import { MyLoggerModule } from '~/logger/mylogger.module'
 @Module({
   imports: [
     UsersModule,
     SessionModule,
     PassportModule,
     MailModule,
+    MyLoggerModule,
     JwtModule.register({}),
   ],
   controllers: [AuthController],

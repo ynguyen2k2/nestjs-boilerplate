@@ -57,7 +57,7 @@ export class UserMapper {
     }
     persistenceEntity.email = domainEntity.email
     persistenceEntity.password = domainEntity.password
-    // persistenceEntity.provider = domainEntity.provider
+    persistenceEntity.provider = domainEntity.provider
     persistenceEntity.socialId = domainEntity.socialId
     persistenceEntity.firstName = domainEntity.firstName
     persistenceEntity.lastName = domainEntity.lastName
