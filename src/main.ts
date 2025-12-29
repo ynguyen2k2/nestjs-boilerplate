@@ -1,5 +1,6 @@
 import 'dotenv/config'
 import {
+  All,
   ClassSerializerInterceptor,
   ValidationPipe,
   VersioningType,
@@ -12,11 +13,13 @@ import { AppModule } from './app.module'
 import validationOptions from './utils/validation-options'
 import { AllConfigType } from './config/config.type'
 import { ResolvePromisesInterceptor } from './utils/serializer-interceptor'
+import { myLogger, MyLogger } from '~/logger/mylogger.service'
+import { AllExceptionsFilter } from '~/utils/error-handler/error-handler-global'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     cors: true,
-    logger: ['error', 'warn', 'log'],
+    logger: ['error', 'warn', 'debug'],
   })
   useContainer(app.select(AppModule), { fallbackOnErrors: true })
   const configService = app.get(ConfigService<AllConfigType>)
@@ -38,6 +41,7 @@ async function bootstrap() {
     new ResolvePromisesInterceptor(),
     new ClassSerializerInterceptor(app.get(Reflector)),
   )
+  app.useGlobalFilters(new AllExceptionsFilter())
 
   const options = new DocumentBuilder()
     .setTitle('API')
@@ -56,7 +60,7 @@ async function bootstrap() {
 
   const document = SwaggerModule.createDocument(app, options)
   SwaggerModule.setup('docs', app, document)
-
+  myLogger.debug('Swagger docs available at /docs')
   await app.listen(
     configService.getOrThrow('app.port', { infer: true }),
     'localhost',
