@@ -11,7 +11,7 @@ export class UserMapper {
     domainEntity.id = raw.id
     domainEntity.email = raw.email
     domainEntity.password = raw.password
-    // domainEntity.provider = raw.provider
+    domainEntity.provider = raw.provider
     domainEntity.socialId = raw.socialId
     domainEntity.firstName = raw.firstName
     domainEntity.lastName = raw.lastName

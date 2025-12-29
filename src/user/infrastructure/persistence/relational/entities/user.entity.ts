@@ -32,7 +32,7 @@ export class UserEntity extends EntityRelationalHelper {
   password?: string
 
   @Column({ default: AuthProvidersEnum.EMAIL })
-  provider: string
+  provider?: string
 
   @Index()
   @Column({ type: String, nullable: true })

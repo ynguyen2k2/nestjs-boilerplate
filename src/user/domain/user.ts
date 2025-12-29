@@ -34,7 +34,7 @@ export class User {
     example: 'email',
   })
   @Expose({ groups: ['me', 'admin'] })
-  provider: string
+  provider?: string
 
   @ApiProperty({
     type: String,
