@@ -6,11 +6,10 @@ import {
 } from '@nestjs/common'
 
 function generateErrors(errors: ValidationError[]) {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
   return errors.reduce(
     (accumulator, currentValue) => ({
       ...accumulator,
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+
       [currentValue.property]:
         (currentValue.children?.length ?? 0) > 0
           ? generateErrors(currentValue.children ?? [])
@@ -27,7 +26,7 @@ const validationOptions: ValidationPipeOptions = {
   exceptionFactory: (errors: ValidationError[]) => {
     return new UnprocessableEntityException({
       status: HttpStatus.UNPROCESSABLE_ENTITY,
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+
       errors: generateErrors(errors),
     })
   },
