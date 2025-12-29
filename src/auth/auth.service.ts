@@ -1,7 +1,7 @@
-/* eslint-disable @typescript-eslint/restrict-plus-operands */
 import {
   HttpStatus,
   Injectable,
+  Logger,
   NotFoundException,
   UnauthorizedException,
   UnprocessableEntityException,
@@ -28,16 +28,22 @@ import { AuthRegisterLoginDto } from '~/auth/dto/auth-register-logic.dto'
 import { RoleEnum } from '~/roles/roles-enum'
 import { StatusEnum } from '~/statuses/status-enum'
 import { MailService } from '~/mail/mail.service'
+import { MyLogger } from '~/logger/mylogger.service'
 
 @Injectable()
 export class AuthService {
+  private readonly loggerCustom = new Logger(AuthService.name)
   constructor(
+    private readonly logger: MyLogger,
     private jwtService: JwtService,
     private usersService: UsersService,
     private sessionService: SessionService,
     private mailService: MailService,
     private configService: ConfigService<AllConfigType>,
   ) {}
+  loggerAuthService() {
+    this.logger.log('Auth Service Logger Works!')
+  }
 
   async validateLogin(loginDto: AuthEmailLoginDto): Promise<LoginResponseDto> {
     const user = await this.usersService.findByEmail(loginDto.email)
@@ -51,7 +57,6 @@ export class AuthService {
       })
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
     if (user.provider !== AuthProvidersEnum.EMAIL) {
       throw new UnprocessableEntityException({
         status: HttpStatus.UNPROCESSABLE_ENTITY,
@@ -205,7 +210,6 @@ export class AuthService {
         id: StatusEnum.INACTIVE,
       },
     })
-
     const hash = await this.jwtService.signAsync(
       {
         confirmEmailUserId: user.id,
@@ -221,12 +225,12 @@ export class AuthService {
       },
     )
 
-    await this.mailService.userSignUp({
-      to: dto.email,
-      data: {
-        hash,
-      },
-    })
+    // await this.mailService.userSignUp({
+    //   to: dto.email,
+    //   data: {
+    //     hash,
+    //   },
+    // })
   }
 
   async confirmEmail(hash: string): Promise<void> {

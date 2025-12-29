@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 async function deepResolvePromises(input) {
   if (input instanceof Promise) {
     return await input
