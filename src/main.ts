@@ -1,6 +1,5 @@
 import 'dotenv/config'
 import {
-  All,
   ClassSerializerInterceptor,
   ValidationPipe,
   VersioningType,
@@ -13,7 +12,7 @@ import { AppModule } from './app.module'
 import validationOptions from './utils/validation-options'
 import { AllConfigType } from './config/config.type'
 import { ResolvePromisesInterceptor } from './utils/serializer-interceptor'
-import { myLogger, MyLogger } from '~/logger/mylogger.service'
+import { myLogger } from '~/logger/mylogger.service'
 import { AllExceptionsFilter } from '~/utils/error-handler/error-handler-global'
 
 async function bootstrap() {

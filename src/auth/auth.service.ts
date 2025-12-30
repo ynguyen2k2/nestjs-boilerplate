@@ -32,7 +32,6 @@ import { MyLogger } from '~/logger/mylogger.service'
 
 @Injectable()
 export class AuthService {
-  private readonly loggerCustom = new Logger(AuthService.name)
   constructor(
     private readonly logger: MyLogger,
     private jwtService: JwtService,
@@ -224,6 +223,7 @@ export class AuthService {
         }),
       },
     )
+    this.logger.debug(`Hash user: ${hash}`)
 
     // await this.mailService.userSignUp({
     //   to: dto.email,
