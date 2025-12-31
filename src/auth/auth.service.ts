@@ -40,10 +40,6 @@ export class AuthService {
     private mailService: MailService,
     private configService: ConfigService<AllConfigType>,
   ) {}
-  loggerAuthService() {
-    this.logger.log('Auth Service Logger Works!')
-  }
-
   async validateLogin(loginDto: AuthEmailLoginDto): Promise<LoginResponseDto> {
     const user = await this.usersService.findByEmail(loginDto.email)
 
@@ -225,12 +221,12 @@ export class AuthService {
     )
     this.logger.debug(`Hash user: ${hash}`)
 
-    // await this.mailService.userSignUp({
-    //   to: dto.email,
-    //   data: {
-    //     hash,
-    //   },
-    // })
+    await this.mailService.userSignUp({
+      to: dto.email,
+      data: {
+        hash,
+      },
+    })
   }
 
   async confirmEmail(hash: string): Promise<void> {
@@ -347,13 +343,14 @@ export class AuthService {
       },
     )
 
-    await this.mailService.forgotPassword({
-      to: email,
-      data: {
-        hash,
-        tokenExpires,
-      },
-    })
+    // await this.mailService.forgotPassword({
+    //   to: email,
+    //   data: {
+    //     hash,
+    //     tokenExpires,
+    //   },
+    // })
+    this.logger.debug(`Forgot password hash: ${hash} `)
   }
 
   async resetPassword(hash: string, password: string): Promise<void> {

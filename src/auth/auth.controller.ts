@@ -42,13 +42,6 @@ export class AuthController {
     private readonly service: AuthService,
   ) {}
 
-  @Get('logger')
-  public testLogger() {
-    this.logger.customLog()
-    this.logger.error('Auth Controller Logger Works!')
-    this.service.loggerAuthService()
-  }
-
   @SerializeOptions({
     groups: ['me'],
   })
