@@ -35,6 +35,10 @@ npm run migration:generate -- src/database/migrations/CreatePostTable
 
 3. Apply this migration to database via [npm run migration:run](#run-migration).
 
+### Create database
+
+### Grant privilege for user
+
 ### Run migration
 
 ```bash
