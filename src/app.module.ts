@@ -19,8 +19,20 @@ const infrastructureDatabaseModule = TypeOrmModule.forRootAsync({
 })
 // </database-block>
 
+import { unnamedsModule } from './unnameds/unnameds.module'
+
+import { PostsModule } from './posts/posts.module'
+
+import { unnamedsModule } from './unnameds/unnameds.module'
+
+import { PostsModule } from './posts/posts.module'
+
 @Module({
   imports: [
+    PostsModule,
+    unnamedsModule,
+    PostsModule,
+    unnamedsModule,
     ConfigModule.forRoot({
       isGlobal: true,
       load: [databaseConfig, appConfig, authConfig],
