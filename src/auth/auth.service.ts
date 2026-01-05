@@ -221,12 +221,12 @@ export class AuthService {
     )
     this.logger.debug(`Hash user: ${hash}`)
 
-    await this.mailService.userSignUp({
-      to: dto.email,
-      data: {
-        hash,
-      },
-    })
+    // await this.mailService.userSignUp({
+    //   to: dto.email,
+    //   data: {
+    //     hash,
+    //   },
+    // })
   }
 
   async confirmEmail(hash: string): Promise<void> {
