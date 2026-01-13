@@ -1,0 +1,10 @@
+packages:
+  - apps/**
+  - packages/**
+  - '!**/test/**'
+
+ignoredBuiltDependencies:
+  - '@nestjs/core'
+  - '@scarf/scarf'
+  - '@swc/core'
+  - bcrypt
