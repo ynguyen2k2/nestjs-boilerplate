@@ -2,11 +2,11 @@ import { Injectable } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { I18nContext } from 'nestjs-i18n'
 import { MailData } from './interfaces/mail-data.interface'
-
 import { MailerService } from '../mailer/mailer.service'
 import path from 'path'
 import { AllConfigType } from '../config/config.type'
 import { MaybeType } from '~/utils/type/maybe.type'
+import { myLogger } from '~/logger/mylogger.service'
 
 @Injectable()
 export class MailService {
@@ -17,11 +17,11 @@ export class MailService {
 
   async userSignUp(mailData: MailData<{ hash: string }>): Promise<void> {
     const i18n = I18nContext.current()
+    // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
     let emailConfirmTitle: MaybeType<string>
     let text1: MaybeType<string>
     let text2: MaybeType<string>
     let text3: MaybeType<string>
-
     if (i18n) {
       ;[emailConfirmTitle, text1, text2, text3] = await Promise.all([
         i18n.t('common.confirmEmail'),
@@ -30,11 +30,13 @@ export class MailService {
         i18n.t('confirm-email.text3'),
       ])
     }
-
     const url = new URL(
       this.configService.getOrThrow<string>('app.frontendDomain', {
         infer: true,
-      }) + '/confirm-email',
+      }) +
+        `/${this.configService.getOrThrow<string>('app.apiPrefix', { infer: true })}` +
+        `/${this.configService.getOrThrow<string>('app.appApiVersion', { infer: true })}` +
+        `/auth/email/confirm`,
     )
     url.searchParams.set('hash', mailData.data.hash)
 
@@ -86,7 +88,10 @@ export class MailService {
     const url = new URL(
       this.configService.getOrThrow<string>('app.frontendDomain', {
         infer: true,
-      }) + '/password-change',
+      }) +
+        `/${this.configService.getOrThrow<string>('app.apiPrefix', { infer: true })}` +
+        `/${this.configService.getOrThrow<string>('app.appApiVersion', { infer: true })}` +
+        `/auth/reset/password`,
     )
     url.searchParams.set('hash', mailData.data.hash)
     url.searchParams.set('expires', mailData.data.tokenExpires.toString())
@@ -128,7 +133,7 @@ export class MailService {
 
     if (i18n) {
       ;[emailConfirmTitle, text1, text2, text3] = await Promise.all([
-        i18n.t('common.confirmEmail'),
+        i18n.t('common.confirmNewEmail'),
         i18n.t('confirm-new-email.text1'),
         i18n.t('confirm-new-email.text2'),
         i18n.t('confirm-new-email.text3'),
@@ -138,10 +143,11 @@ export class MailService {
     const url = new URL(
       this.configService.getOrThrow<string>('app.frontendDomain', {
         infer: true,
-      }) + '/confirm-new-email',
+      }) +
+        `/${this.configService.getOrThrow<string>('app.apiPrefix', { infer: true })}` +
+        `/${this.configService.getOrThrow<string>('app.appApiVersion', { infer: true })}` +
+        `/auth/email/confirm/new?hash=${mailData.data.hash}`,
     )
-    url.searchParams.set('hash', mailData.data.hash)
-
     await this.mailerService.sendMail({
       to: mailData.to,
       subject: emailConfirmTitle,
