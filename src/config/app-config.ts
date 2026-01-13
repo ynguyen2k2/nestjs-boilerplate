@@ -42,6 +42,10 @@ class EnvironmentVariablesValidator {
 
   @IsString()
   @IsOptional()
+  APP_API_VERSION: string
+
+  @IsString()
+  @IsOptional()
   APP_FALLBACK_LANGUAGE: string
 
   @IsString()
@@ -64,6 +68,7 @@ export default registerAs<AppConfig>('app', () => {
         ? parseInt(process.env.PORT, 10)
         : 3000,
     apiPrefix: process.env.API_PREFIX || 'api',
+    appApiVersion: process.env.APP_API_VERSION || 'v1',
     fallbackLanguage: process.env.APP_FALLBACK_LANGUAGE || 'en',
     headerLanguage: process.env.APP_HEADER_LANGUAGE || 'x-custom-lang',
   }

@@ -6,6 +6,7 @@ export type AppConfig = {
   fontendDomain?: string
   backendDomain: string
   apiPrefix: string
+  appApiVersion: string
   fallbackLanguage: string
   headerLanguage: string
 }
