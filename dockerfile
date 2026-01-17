@@ -1,11 +1,12 @@
 FROM node:24.12.0-alpine
 
 RUN apk add --no-cache bash
+RUN npm install -g pnpm@10
 RUN npm i -g @nestjs/cli typescript ts-node 
 
-COPY package.json /tmp/app/
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml /tmp/app/
 WORKDIR /tmp/app
-RUN  npm install
+RUN  pnpm install
 
 COPY . /usr/src/app
 RUN cp -a /tmp/app/node_modules /usr/src/app
@@ -17,7 +18,7 @@ RUN sed -i 's/\r//g' /opt/wait-for-it.sh
 RUN sed -i 's/\r//g' /opt/startup.relational.dev.sh
 
 WORKDIR /usr/src/app
-RUN if [ ! -f .env ]; then cp env-example-relational .env; fi
-RUN npm run build
+RUN if [ ! -f .env ]; then cp .env.example.relational .env; fi
+RUN pnpm run build
 
 CMD ["/opt/startup.relational.dev.sh"]

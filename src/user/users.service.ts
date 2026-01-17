@@ -32,7 +32,6 @@ export class UsersService {
   async create(createUserDto: CreateUserDto): Promise<User> {
     // Do not remove comment below.
     // <creating-property />
-    this.logger.debug('Creating user with email: ' + createUserDto.email)
     let password: string | undefined = undefined
 
     if (createUserDto.password) {

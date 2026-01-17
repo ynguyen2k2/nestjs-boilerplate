@@ -1,7 +1,6 @@
 import {
   HttpStatus,
   Injectable,
-  Logger,
   NotFoundException,
   UnauthorizedException,
   UnprocessableEntityException,
@@ -28,7 +27,7 @@ import { AuthRegisterLoginDto } from '~/auth/dto/auth-register-logic.dto'
 import { RoleEnum } from '~/roles/roles-enum'
 import { StatusEnum } from '~/statuses/status-enum'
 import { MailService } from '~/mail/mail.service'
-import { MyLogger } from '~/logger/mylogger.service'
+import { myLogger, MyLogger } from '~/logger/mylogger.service'
 
 @Injectable()
 export class AuthService {
@@ -219,14 +218,12 @@ export class AuthService {
         }),
       },
     )
-    this.logger.debug(`Hash user: ${hash}`)
-
-    // await this.mailService.userSignUp({
-    //   to: dto.email,
-    //   data: {
-    //     hash,
-    //   },
-    // })
+    await this.mailService.userSignUp({
+      to: dto.email,
+      data: {
+        hash,
+      },
+    })
   }
 
   async confirmEmail(hash: string): Promise<void> {
@@ -343,14 +340,13 @@ export class AuthService {
       },
     )
 
-    // await this.mailService.forgotPassword({
-    //   to: email,
-    //   data: {
-    //     hash,
-    //     tokenExpires,
-    //   },
-    // })
-    this.logger.debug(`Forgot password hash: ${hash} `)
+    await this.mailService.forgotPassword({
+      to: email,
+      data: {
+        hash,
+        tokenExpires,
+      },
+    })
   }
 
   async resetPassword(hash: string, password: string): Promise<void> {
@@ -490,7 +486,6 @@ export class AuthService {
 
     delete userDto.email
     delete userDto.oldPassword
-
     await this.usersService.update(userJwtPayload.id, userDto)
 
     return this.usersService.findById(userJwtPayload.id)

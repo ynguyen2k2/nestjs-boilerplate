@@ -13,7 +13,6 @@ import validationOptions from './utils/validation-options'
 import { AllConfigType } from './config/config.type'
 import { ResolvePromisesInterceptor } from './utils/serializer-interceptor'
 import { myLogger } from '~/logger/mylogger.service'
-import { AllExceptionsFilter } from '~/utils/error-handler/error-handler-global'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
@@ -40,8 +39,6 @@ async function bootstrap() {
     new ResolvePromisesInterceptor(),
     new ClassSerializerInterceptor(app.get(Reflector)),
   )
-  app.useGlobalFilters(new AllExceptionsFilter())
-
   const options = new DocumentBuilder()
     .setTitle('API')
     .setDescription('API docs')
@@ -59,7 +56,6 @@ async function bootstrap() {
 
   const document = SwaggerModule.createDocument(app, options)
   SwaggerModule.setup('docs', app, document)
-  myLogger.debug('Swagger docs available at /docs')
   await app.listen(
     configService.getOrThrow('app.port', { infer: true }),
     'localhost',
