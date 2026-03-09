@@ -26,6 +26,8 @@ services:
     build:
       context: .
       dockerfile: relational.test.Dockerfile
+    ports:
+      - ${APP_PORT}:${APP_PORT}
     env_file:
       - .env.example.relational
     volumes:
