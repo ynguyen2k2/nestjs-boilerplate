@@ -1,6 +1,13 @@
 import 'reflect-metadata'
 import { DataSource, DataSourceOptions } from 'typeorm'
 
+console.log('--- DEBUG DATA SOURCE ---')
+console.log('DB Host:', process.env.DATABASE_HOST)
+console.log('DB Port:', process.env.DATABASE_PORT)
+console.log('DB Name:', process.env.DATABASE_NAME)
+console.log('DB User:', process.env.DATABASE_USERNAME)
+console.log('-------------------------')
+
 export const AppDataSource = new DataSource({
   type: process.env.DATABASE_TYPE,
   url: process.env.DATABASE_URL,
@@ -14,7 +21,7 @@ export const AppDataSource = new DataSource({
   synchronize: process.env.DATABASE_SYNCHRONIZE === 'true',
   dropSchema: false,
   keepConnectionAlive: true,
-  logging: false,
+  logging: true,
   entities: [__dirname + '/../**/*.entity{.ts,.js}'],
   migrations: [__dirname + '/migrations/**/*{.ts,.js}'],
   cli: {
