@@ -1,4 +1,4 @@
-NestJS E-commerce Project Plan
++NestJS E-commerce Project Plan
 
 1. Project Overview
    Build a scalable e-commerce backend using NestJS
