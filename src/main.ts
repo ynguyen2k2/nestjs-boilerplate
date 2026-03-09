@@ -53,12 +53,9 @@ async function bootstrap() {
       },
     })
     .build()
-
+  console.log('app running')
   const document = SwaggerModule.createDocument(app, options)
   SwaggerModule.setup('docs', app, document)
-  await app.listen(
-    configService.getOrThrow('app.port', { infer: true }),
-    'localhost',
-  )
+  await app.listen(configService.getOrThrow('app.port', { infer: true }))
 }
 void bootstrap()
