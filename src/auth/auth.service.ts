@@ -321,7 +321,6 @@ export class AuthService {
       })
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     const tokenExpiresIn = this.configService.getOrThrow('auth.forgotExpires', {
       infer: true,
     }) as ms.StringValue
@@ -549,7 +548,6 @@ export class AuthService {
     sessionId: Session['id']
     hash: Session['hash']
   }) {
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     const tokenExpiresIn = this.configService.getOrThrow('auth.expires', {
       infer: true,
     }) as ms.StringValue
