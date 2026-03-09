@@ -17,7 +17,7 @@ export class MailService {
 
   async userSignUp(mailData: MailData<{ hash: string }>): Promise<void> {
     const i18n = I18nContext.current()
-    // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+
     let emailConfirmTitle: MaybeType<string>
     let text1: MaybeType<string>
     let text2: MaybeType<string>
